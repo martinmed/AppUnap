@@ -18,9 +18,23 @@ namespace AppUnap
            
 #if __ANDROID__
             var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
+            if (cantidadCuenta > 0)
+            {
+                Navigation.PushModalAsync(new PPrincipal());
+            }
+            
 #endif
+
 #if __IOS__
 			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
+            if (cantidadCuenta == 0)
+            {
+                Navigation.PushModalAsync(new PLogin());
+            }
+            else
+            {
+                Navigation.PushModalAsync(new PPrincipal());
+            }
 #endif
 
 
