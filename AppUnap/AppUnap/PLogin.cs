@@ -1,19 +1,29 @@
-﻿using Newtonsoft.Json.Linq;
-using System;
+﻿using System;
+using System.Net;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
-using System.Net;
 using System.Text;
-
 using Xamarin.Forms;
+using Newtonsoft.Json.Linq;
+using Xamarin.Auth;
+
 
 namespace AppUnap
 {
-	public class PLogin : ContentPage
+    public class PLogin : ContentPage
 	{
 		public PLogin ()
 		{
+           
+#if __ANDROID__
+            var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
+#endif
+#if __IOS__
+			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
+#endif
+
+
             //Imagen con logo
             Image img_logo = new Image();
             img_logo.Source = "png_logounap.png";
@@ -41,16 +51,25 @@ namespace AppUnap
 
                 //capturamos la respuesta del servidor
                 var respuesta = validarAcceso(email, clave);
+
                 //obtenemos los datos
                 var datosResultados = JObject.Parse(respuesta);
+                
 
                 //se extrae la respuesta del servidor indicando si se logra o no la autenticacion
                 String r = datosResultados["ENTRA"].ToString();
 
                 //efectuamos una comparacion
-                if (r.Equals("SI"))
+                if (r.Equals("SI")) 
                 {
-                    //TODO: guardar credenciales en el dispositivo
+                    var respuestaDatosUsuario = obtenerDatosUsuario(email,clave);
+
+                    var datosResultadoUsuario = JObject.Parse(respuestaDatosUsuario);
+
+                    Account cuentaUsuario = new Account(email.ToString(), CuentaUsuario.Dictionary(email.ToString(), clave.ToString()));
+
+                    AccountStore.Create().Save(cuentaUsuario, App.Current.ToString());
+
                     //redireccionamos a pprincipal
                     await Navigation.PushModalAsync(new PPrincipal());
                 }
@@ -59,9 +78,6 @@ namespace AppUnap
                     //mostrar un mensaje indicando que las credenciales no son validas
                     await DisplayAlert("LOGIN", "Usuario o clave incorrecta", "OK");
                 }
-
-
-
                 };
 
             Content = new StackLayout {
@@ -76,18 +92,47 @@ namespace AppUnap
 			};
 		}
 
-        string validarAcceso(string email, string clave)
+        string validarAcceso(string email,string clave)
         {
             WebClient clienteWeb = new WebClient();
             Uri uri = new Uri("http://209.208.28.88/servicios/demo-validar-usuario3.php");
             NameValueCollection parametros = new NameValueCollection();
-            parametros.Add("p_email", email);
+            parametros.Add("p_email", email.ToString());
             parametros.Add("p_clave", clave);
+
+
+
 
             byte[] respuestaByte = clienteWeb.UploadValues(uri, "POST", parametros);
             string respuestaString = Encoding.UTF8.GetString(respuestaByte);
 
             return respuestaString;
+        }
+
+        string obtenerDatosUsuario(string email,string clave)
+        {
+            WebClient cliente = new WebClient();
+            Uri uri = new Uri("http://209.208.28.88/servicios/demo-validar-usuario3.php");
+            NameValueCollection parametros = new NameValueCollection();
+            parametros.Add("p_email", email.ToString());
+            parametros.Add("p_clave", clave);
+
+
+
+            byte[] responseBytes = cliente.UploadValues(uri, "POST", parametros);
+            string responseString = Encoding.UTF8.GetString(responseBytes);
+            return responseString;
+        }
+    }
+    internal class CuentaUsuario
+    {
+        public static IDictionary<string, string> Dictionary(string email, string clave)
+        {
+            IDictionary<string, string> d = new Dictionary<string, string>();
+            d.Add("Demail", email);
+            d.Add("Dclave", clave);
+            
+            return d;
         }
     }
 }
