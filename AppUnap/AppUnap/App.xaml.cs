@@ -1,9 +1,13 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using Xamarin.Auth;
 using Xamarin.Forms;
+using System.Net;
+using System.Collections.Specialized;
+using Newtonsoft.Json.Linq;
 
 namespace AppUnap
 {
@@ -11,12 +15,23 @@ namespace AppUnap
 	{
 		public App ()
 		{
+            //si vamos a tener el mismo comportamiento tanto para android como pa ios no tiene sentido tener la condicion de que si es android haga esto, si es ios haz esto mismo.
+
 			InitializeComponent();
 
-            MainPage = new AppUnap.PLogin();
-		}
+            var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
 
-		protected override void OnStart ()
+            if (cantidadCuenta == 0)
+            {
+                MainPage = new AppUnap.PLogin();
+            }
+            else
+            {
+                MainPage = new AppUnap.PPrincipal();
+            }
+        }
+
+        protected override void OnStart ()
 		{
 			// Handle when your app starts
 		}

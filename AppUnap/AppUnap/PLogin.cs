@@ -15,28 +15,18 @@ namespace AppUnap
 	{
 		public PLogin ()
 		{
-           
-#if __ANDROID__
-            var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
-            if (cantidadCuenta > 0)
-            {
-                Navigation.PushModalAsync(new PPrincipal());
-            }
-            
-#endif
 
-#if __IOS__
-			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
-            if (cantidadCuenta == 0)
-            {
-                Navigation.PushModalAsync(new PLogin());
-            }
-            else
-            {
-                Navigation.PushModalAsync(new PPrincipal());
-            }
-#endif
-
+            //#if __IOS__
+            //			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
+            //            if (cantidadCuenta == 0)
+            //            {
+            //                Navigation.PushModalAsync(new PLogin());
+            //            }
+            //            else
+            //            {
+            //                Navigation.PushModalAsync(new PPrincipal());
+            //            }
+            //#endif
 
             //Imagen con logo
             Image img_logo = new Image();
@@ -113,10 +103,7 @@ namespace AppUnap
             NameValueCollection parametros = new NameValueCollection();
             parametros.Add("p_email", email.ToString());
             parametros.Add("p_clave", clave);
-
-
-
-
+            
             byte[] respuestaByte = clienteWeb.UploadValues(uri, "POST", parametros);
             string respuestaString = Encoding.UTF8.GetString(respuestaByte);
 
@@ -130,8 +117,6 @@ namespace AppUnap
             NameValueCollection parametros = new NameValueCollection();
             parametros.Add("p_email", email.ToString());
             parametros.Add("p_clave", clave);
-
-
 
             byte[] responseBytes = cliente.UploadValues(uri, "POST", parametros);
             string responseString = Encoding.UTF8.GetString(responseBytes);
