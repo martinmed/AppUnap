@@ -7,7 +7,7 @@ using System.Text;
 using Xamarin.Forms;
 using Newtonsoft.Json.Linq;
 using Xamarin.Auth;
-
+using Com.OneSignal;
 
 namespace AppUnap
 {
@@ -73,6 +73,9 @@ namespace AppUnap
                     Account cuentaUsuario = new Account(email.ToString(), CuentaUsuario.Dictionary(email.ToString(), clave.ToString()));
 
                     AccountStore.Create().Save(cuentaUsuario, App.Current.ToString());
+
+					OneSignal.Current.StartInit("2dd4372e-7506-4f8f-b440-dde5e2ffe8ef")
+                  .EndInit();
 
                     //redireccionamos a pprincipal
                     await Navigation.PushModalAsync(new PPrincipal());

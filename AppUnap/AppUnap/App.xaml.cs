@@ -19,6 +19,7 @@ namespace AppUnap
 
 			InitializeComponent();
 
+
             var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
 
             if (cantidadCuenta == 0)

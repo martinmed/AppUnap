@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 	<uses-sdk android:minSdkVersion="15" />
-	<application android:label="AppUnap.Android"></application>
+	<permission android:name="${AppUnap.Android}.permission.C2D_MESSAGE"
+            android:protectionLevel="signature" />
+<uses-permission android:name="${AppUnap.Android}.permission.C2D_MESSAGE" />
+	
+	<application android:label="AppUnap.Android">
+	<receiver android:name="com.onesignal.GcmBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND" >
+    <intent-filter>
+      <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+      <category android:name="${AppUnap.Android}" />
+    </intent-filter>
+  </receiver>
+
+	</application>
+
 </manifest>

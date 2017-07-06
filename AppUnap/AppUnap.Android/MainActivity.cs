@@ -19,9 +19,13 @@ namespace AppUnap.Droid
 			ToolbarResource = Resource.Layout.Toolbar; 
 
 			base.OnCreate (bundle);
+            //SetContentView(Resource.Layout.);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new AppUnap.App ());
+
+
+			//APP ID en OneSignal: 2dd4372e-7506-4f8f-b440-dde5e2ffe8ef
 
 			OneSignal.Current.StartInit("2dd4372e-7506-4f8f-b440-dde5e2ffe8ef")
                   .EndInit();
