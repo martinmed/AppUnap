@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Com.OneSignal;
 
 namespace AppUnap.Droid
 {
@@ -21,6 +22,9 @@ namespace AppUnap.Droid
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new AppUnap.App ());
+
+			OneSignal.Current.StartInit("2dd4372e-7506-4f8f-b440-dde5e2ffe8ef")
+                  .EndInit();
 		}
 	}
 }
