@@ -16,7 +16,7 @@ namespace AppUnap
 		public PLogin ()
 		{
 
-            //#if __IOS__
+            
             //			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
             //            if (cantidadCuenta == 0)
             //            {
@@ -26,7 +26,7 @@ namespace AppUnap
             //            {
             //                Navigation.PushModalAsync(new PPrincipal());
             //            }
-            //#endif
+            
 
             //Imagen con logo
             Image img_logo = new Image();
@@ -74,8 +74,7 @@ namespace AppUnap
 
                     AccountStore.Create().Save(cuentaUsuario, App.Current.ToString());
 
-					OneSignal.Current.StartInit("2dd4372e-7506-4f8f-b440-dde5e2ffe8ef")
-                  .EndInit();
+                    OneSignal.Current.StartInit("476618db-f2f3-4fb7-940f-530bee13e428").EndInit();
 
                     //redireccionamos a pprincipal
                     await Navigation.PushModalAsync(new PPrincipal());

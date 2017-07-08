@@ -16,19 +16,19 @@ namespace AppUnap.Droid
 		protected override void OnCreate (Bundle bundle)
 		{
 			TabLayoutResource = Resource.Layout.Tabbar;
-			ToolbarResource = Resource.Layout.Toolbar; 
+			ToolbarResource = Resource.Layout.Toolbar;
 
-			base.OnCreate (bundle);
+            //APP ID en OneSignal: 2dd4372e-7506-4f8f-b440-dde5e2ffe8ef
+
+            OneSignal.Current.StartInit("476618db-f2f3-4fb7-940f-530bee13e428").EndInit();
+            base.OnCreate (bundle);
             //SetContentView(Resource.Layout.);
 
 			global::Xamarin.Forms.Forms.Init (this, bundle);
 			LoadApplication (new AppUnap.App ());
 
 
-			//APP ID en OneSignal: 2dd4372e-7506-4f8f-b440-dde5e2ffe8ef
-
-			OneSignal.Current.StartInit("2dd4372e-7506-4f8f-b440-dde5e2ffe8ef")
-                  .EndInit();
+			
 		}
 	}
 }

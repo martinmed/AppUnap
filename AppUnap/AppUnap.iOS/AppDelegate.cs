@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Com.OneSignal;
 
 using Foundation;
 using UIKit;
@@ -22,7 +23,8 @@ namespace AppUnap.iOS
 		//
 		public override bool FinishedLaunching(UIApplication app, NSDictionary options)
 		{
-			global::Xamarin.Forms.Forms.Init ();
+            OneSignal.Current.StartInit("476618db-f2f3-4fb7-940f-530bee13e428").EndInit();
+            global::Xamarin.Forms.Forms.Init ();
 			LoadApplication (new AppUnap.App ());
 
 			return base.FinishedLaunching (app, options);

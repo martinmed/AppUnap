@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using System.Net;
 using System.Collections.Specialized;
 using Newtonsoft.Json.Linq;
+using Com.OneSignal;
 
 namespace AppUnap
 {
@@ -19,7 +20,8 @@ namespace AppUnap
 
 			InitializeComponent();
 
-
+            //OneSignal.Current.StartInit("476618db-f2f3-4fb7-940f-530bee13e428").EndInit();
+            #if __ANDROID__
             var cantidadCuenta = AccountStore.Create(Forms.Context).FindAccountsForService(Application.Current.ToString()).Count();
 
             if (cantidadCuenta == 0)
@@ -30,6 +32,7 @@ namespace AppUnap
             {
                 MainPage = new AppUnap.PPrincipal();
             }
+            #endif
         }
 
         protected override void OnStart ()
