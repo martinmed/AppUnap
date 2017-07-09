@@ -12,41 +12,83 @@ namespace AppUnap
     {
         public PPrincipal()
         {
-            Button btn1= new Button();
-            btn1.Image = "notas.png";
-            btn1.Text = "Calificaciones";
-            btn1.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            btn1.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
-            btn1.BackgroundColor = Color.White;
+            //TODO: asignar nombre de usuario a esta variable
+            string nombre="";
+            //////////////
 
-            Button btn2 = new Button();
-            btn2.Image = "aulavirtual.png";
-            btn2.Text = "Aula Virtual";
-            btn2.HorizontalOptions = LayoutOptions.CenterAndExpand;
-            btn2.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
-            btn2.BackgroundColor = Color.White;
+            Button btnNotas= new Button();
+            btnNotas.Image = "notas.png";
+            btnNotas.Text = "Calificaciones";
+            btnNotas.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            btnNotas.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
+            btnNotas.BackgroundColor = Color.White;
+            btnNotas.Clicked += async (sender, e) =>
+            {
+                await Navigation.PushModalAsync(new ListViewPage1());
+            };
+
+                ListView lv1 = new ListView(); 
+
+            Button btnAulaVirtual = new Button();
+            btnAulaVirtual.Image = "aulavirtual.png";
+            btnAulaVirtual.Text = "Aula Virtual";
+            btnAulaVirtual.HorizontalOptions = LayoutOptions.CenterAndExpand;
+            btnAulaVirtual.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
+            btnAulaVirtual.BackgroundColor = Color.White;
 
             Image imgLogo = new Image();
             imgLogo.Source = "png_logounap.png";
 
+            Label lblBienvenido = new Label();
+            lblBienvenido.Text = "Bienvenido " + nombre;
+            lblBienvenido.TextColor= Color.FromHex("#046DAB");
+            lblBienvenido.HorizontalTextAlignment = TextAlignment.Center;
+            lblBienvenido.FontSize = 25;
+            lblBienvenido.FontAttributes = FontAttributes.Bold;
+
+            Button btnConfiguracion = new Button();
+            btnConfiguracion.Image = "engranaje.png";
+            btnConfiguracion.HorizontalOptions = LayoutOptions.Center;
+            btnConfiguracion.ContentLayout = new ButtonContentLayout(ImagePosition.Right, 0);
+            btnConfiguracion.BackgroundColor = Color.White;
+            btnConfiguracion.Scale=0.4;
+            btnConfiguracion.Clicked += async (sender, e) =>
+            {
+                await Navigation.PushModalAsync(new PConf());
+            };
+
+
+
             Content = new StackLayout
             {
-                Padding = new Thickness(0, 50, 0, 0),
-                VerticalOptions = LayoutOptions.StartAndExpand,
+                Padding = new Thickness(0, 10, 0, 0),
+                VerticalOptions = LayoutOptions.FillAndExpand,
                 Children =
                 {
-                    imgLogo,
+                imgLogo,
+                lblBienvenido,
 
                      new StackLayout
                 {
-                    Padding = new Thickness (0, 50, 0, 0),
+                    Padding = new Thickness (0, 10, 0, 0),
                     Orientation = StackOrientation.Horizontal,
                     Children =
                     {
-                        btn1,
-                        btn2,
+                        btnNotas,
+                        btnAulaVirtual,
                     }
                 },
+                     new AbsoluteLayout
+                     {                        
+                        VerticalOptions = LayoutOptions.End,
+                        HorizontalOptions=LayoutOptions.CenterAndExpand,
+
+                         Children =
+                         {
+                             btnConfiguracion,
+                         }
+                     }
+                     
                 
                 }
             
