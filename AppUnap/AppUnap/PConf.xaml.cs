@@ -76,7 +76,20 @@ namespace AppUnap
                 //guardar en DB
             };
 
-                Content = new StackLayout
+            Button btnCerrarSesion = new Button();
+            btnCerrarSesion.Text = "Cerrar Sesion";
+            btnCerrarSesion.HorizontalOptions = LayoutOptions.Center;
+            btnCerrarSesion.BackgroundColor = Color.White;
+            //btnGuardar.HeightRequest = 100;
+            //btnGuardar.WidthRequest = 100;
+            btnCerrarSesion.BackgroundColor = Color.FromHex("#046DAB");
+            btnCerrarSesion.TextColor = Color.FromHex("#FFFFFF");
+            btnGuardar.Clicked += async (sender, e) =>
+            {
+                //guardar en DB
+            };
+
+            Content = new StackLayout
             {
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Children =
@@ -113,6 +126,7 @@ namespace AppUnap
                         entEmail,
                         entCelular,
                         btnGuardar,
+                        btnCerrarSesion
                 },
             };
         }
