@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Plugin.Media;
+using Plugin.Media.Abstractions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,8 +16,8 @@ namespace AppUnap
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class PConf : ContentPage
 	{
-		public PConf ()
-		{
+        public PConf()
+        {
             Image imgLogo = new Image();
             imgLogo.Source = "png_logounap.png";
             imgLogo.WidthRequest = 100;
@@ -29,19 +31,46 @@ namespace AppUnap
             lblTitulo.FontAttributes = FontAttributes.Bold;
             lblTitulo.VerticalTextAlignment = TextAlignment.Center;
 
-            Button fotoPerfil = new Button();
-            fotoPerfil.Image = "imagenpordefecto.png";
-            fotoPerfil.HorizontalOptions = LayoutOptions.Center;
-            fotoPerfil.ContentLayout = new ButtonContentLayout(ImagePosition.Right, 0);
-            fotoPerfil.BackgroundColor = Color.White;
-            fotoPerfil.HeightRequest = 100;
-            fotoPerfil.WidthRequest = 100;
-            fotoPerfil.Clicked += async (sender, e) =>
-            {
-                //Manejar camara
-            };
+            Image fotoPerfil = new Image();
 
-                Label lblNombre = new Label();
+            Button btnFotoPerfil = new Button();
+            //if(no se encuentra foto en la BD)
+            //{
+            btnFotoPerfil.Image = "imagenpordefecto.png";
+            //}
+            //else
+            //{
+            //    btnFotoPerfil.Image = "...";
+            //}
+            btnFotoPerfil.HorizontalOptions = LayoutOptions.Center;
+            btnFotoPerfil.ContentLayout = new ButtonContentLayout(ImagePosition.Right, 0);
+            btnFotoPerfil.BackgroundColor = Color.FromHex("#99A8C4");
+            btnFotoPerfil.HeightRequest = 100;
+            btnFotoPerfil.WidthRequest = 100;
+            btnFotoPerfil.Clicked += async (sender, e) =>
+            {
+                var almacenamiento = new StoreCameraMediaOptions()
+                {
+                    SaveToAlbum = true,
+                    Name = "perfilUnap.jpg",
+                };
+                var foto = await CrossMedia.Current.TakePhotoAsync(almacenamiento);
+                fotoPerfil.Source = ImageSource.FromStream(() =>
+                  {
+                      var stream = foto.GetStream();
+                      foto.Dispose();
+
+                      return stream;
+                  });
+            };
+            //manejar el almacenamiento de la foto en la DB 
+
+            ////////
+            //establecer la imagen del boton con la fuente desde la DB
+            //btnFotoPerfil.Image = ImageSource
+            //////
+
+            Label lblNombre = new Label();
             lblNombre.Text = "Nombre Apellido Apellido";
             lblNombre.TextColor = Color.FromHex("#046DAB");
             lblNombre.HorizontalTextAlignment = TextAlignment.Center;
@@ -67,8 +96,6 @@ namespace AppUnap
             btnGuardar.Text = "Guardar";
             btnGuardar.HorizontalOptions = LayoutOptions.Center;
             btnGuardar.BackgroundColor = Color.White;
-            //btnGuardar.HeightRequest = 100;
-            //btnGuardar.WidthRequest = 100;
             btnGuardar.BackgroundColor = Color.FromHex("#046DAB");
             btnGuardar.TextColor = Color.FromHex("#FFFFFF");
             btnGuardar.Clicked += async (sender, e) =>
@@ -80,13 +107,11 @@ namespace AppUnap
             btnCerrarSesion.Text = "Cerrar Sesion";
             btnCerrarSesion.HorizontalOptions = LayoutOptions.Center;
             btnCerrarSesion.BackgroundColor = Color.White;
-            //btnGuardar.HeightRequest = 100;
-            //btnGuardar.WidthRequest = 100;
             btnCerrarSesion.BackgroundColor = Color.FromHex("#046DAB");
             btnCerrarSesion.TextColor = Color.FromHex("#FFFFFF");
             btnGuardar.Clicked += async (sender, e) =>
             {
-                //guardar en DB
+                //cerrar sesion
             };
 
             Content = new StackLayout
@@ -120,7 +145,7 @@ namespace AppUnap
                                             lblRut
                                         }
                             },
-                            fotoPerfil,
+                            btnFotoPerfil,
                         }
                     },
                         entEmail,
