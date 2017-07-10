@@ -101,9 +101,9 @@ namespace AppUnap
         string validarAcceso(string email,string clave)
         {
             WebClient clienteWeb = new WebClient();
-            Uri uri = new Uri("http://209.208.28.88/servicios/demo-validar-usuario3.php");
+            Uri uri = new Uri("http://209.208.28.88/serviciosremotos/autentificacion.php");
             NameValueCollection parametros = new NameValueCollection();
-            parametros.Add("p_email", email.ToString());
+            parametros.Add("p_email", email);
             parametros.Add("p_clave", clave);
             
             byte[] respuestaByte = clienteWeb.UploadValues(uri, "POST", parametros);
@@ -115,9 +115,9 @@ namespace AppUnap
         string obtenerDatosUsuario(string email,string clave)
         {
             WebClient cliente = new WebClient();
-            Uri uri = new Uri("http://209.208.28.88/servicios/demo-validar-usuario3.php");
+            Uri uri = new Uri("http://209.208.28.88/serviciosremotos/autentificacion.php");
             NameValueCollection parametros = new NameValueCollection();
-            parametros.Add("p_email", email.ToString());
+            parametros.Add("p_email", email);
             parametros.Add("p_clave", clave);
 
             byte[] responseBytes = cliente.UploadValues(uri, "POST", parametros);
