@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Xamarin.Forms;
 using static Xamarin.Forms.Button;
 using static Xamarin.Forms.Button.ButtonContentLayout;
@@ -12,8 +13,12 @@ namespace AppUnap
     {
         public PPrincipal()
         {
+            /*FGANGA Obtiene los datos desde el accountstore*/
+
+            var datosUsuario = Xamarin.Auth.AccountStore.Create().FindAccountsForService(Application.Current.ToString()).FirstOrDefault();
             //TODO: asignar nombre de usuario a esta variable
-            string nombre="";
+            string nombre= datosUsuario.Properties["Dnombre"];
+            string apellido = datosUsuario.Properties["Dapellido"];
             //////////////
 
             Button btnNotas= new Button();

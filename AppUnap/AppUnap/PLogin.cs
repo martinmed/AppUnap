@@ -66,11 +66,21 @@ namespace AppUnap
                 //efectuamos una comparacion
                 if (r.Equals("SI")) 
                 {
-                    var respuestaDatosUsuario = obtenerDatosUsuario(email,clave);
+                    /*FGANGA obtiene los datos del usuario que inició sesión */
+                    var respuestaDatosUsuario = obtenerDatosUsuario(email);
 
-                    var datosResultadoUsuario = JObject.Parse(respuestaDatosUsuario);
+                    var datosResultadoUsuario = JArray.Parse(respuestaDatosUsuario);
+					//Obtenemos Los datos de usuario desde la respuesta del servidor
+                    int p_rut               = Convert.ToInt32(datosResultadoUsuario[0]["RUT"].ToString());
+                    string p_nombre         = datosResultadoUsuario[0]["NOMBRE"].ToString();
+					string p_apellido       = datosResultadoUsuario[0]["APELLIDO"].ToString();
+                    string p_url_foto       = datosResultadoUsuario[0]["URL_FOTO"].ToString();
+                    int p_id_carrera        = Convert.ToInt32(datosResultadoUsuario[0]["ID_CARRERA"].ToString());
+                    string p_nombre_carrera = datosResultadoUsuario[0]["NOMBRE_CARRERA"].ToString();
+					int p_id_sede           = Convert.ToInt32(datosResultadoUsuario[0]["ID_SEDE"].ToString());
+					string p_nombre_sede    = datosResultadoUsuario[0]["NOMBRE_SEDE"].ToString();
 
-                    Account cuentaUsuario = new Account(email.ToString(), CuentaUsuario.Dictionary(email.ToString(), clave.ToString()));
+                    Account cuentaUsuario = new Account(email, CuentaUsuario.Dictionary(email,p_rut,p_nombre,p_apellido,p_url_foto,p_id_carrera,p_nombre_carrera,p_id_sede,p_nombre_sede));
 
                     AccountStore.Create().Save(cuentaUsuario, App.Current.ToString());
 
@@ -112,26 +122,36 @@ namespace AppUnap
             return respuestaString;
         }
 
-        string obtenerDatosUsuario(string email,string clave)
+        string obtenerDatosUsuario(string email)
         {
             WebClient cliente = new WebClient();
-            Uri uri = new Uri("http://209.208.28.88/serviciosremotos/autentificacion.php");
+            Uri uri = new Uri("http://209.208.28.88/serviciosremotos/datos-alumno.php");
             NameValueCollection parametros = new NameValueCollection();
             parametros.Add("p_email", email);
-            parametros.Add("p_clave", clave);
+          
 
             byte[] responseBytes = cliente.UploadValues(uri, "POST", parametros);
             string responseString = Encoding.UTF8.GetString(responseBytes);
             return responseString;
         }
+		
     }
     internal class CuentaUsuario
     {
-        public static IDictionary<string, string> Dictionary(string email, string clave)
+            /*FGANGA Incorpora nuevos datos de usuario*/            
+        public static IDictionary<string, string> Dictionary(string email, int rut, string nombre, string apellido, string url_foto,int id_carrera,string nombre_carrera,int id_sede,string nombre_sede)
         {
             IDictionary<string, string> d = new Dictionary<string, string>();
             d.Add("Demail", email);
-            d.Add("Dclave", clave);
+            d.Add("Drut", rut.ToString());
+            d.Add("Dnombre",nombre);
+            d.Add("Dapellido", apellido);
+            d.Add("Durlfoto", url_foto);
+            d.Add("Did_carrera",id_carrera.ToString());
+            d.Add("Dnombre_carrera", nombre_carrera);
+            d.Add("Did_sede", id_sede.ToString());
+            d.Add("Dnombre_sede", nombre_sede);
+                  
             
             return d;
         }
