@@ -4,7 +4,7 @@ using System.Text;
 
 namespace AppUnap
 {
-    class CNotas
+    class CNota
     {
 
         public int id_nota { get; set; }

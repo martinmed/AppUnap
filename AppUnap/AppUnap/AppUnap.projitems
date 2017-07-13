@@ -13,7 +13,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)CAsignatura.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)CNotas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CNota.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListViewPage1.xaml.cs">
       <DependentUpon>ListViewPage1.xaml</DependentUpon>
       <SubType>Code</SubType>

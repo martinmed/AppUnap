@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace AppUnap
 {
+
 	public class PAsignatura : ContentPage
     {
         //ListView para mostrar asignatura en la interfaz
@@ -17,12 +19,13 @@ namespace AppUnap
 
         public PAsignatura()
         {
+            var datosUsuario = Xamarin.Auth.AccountStore.Create().FindAccountsForService(Application.Current.ToString()).FirstOrDefault();
             //Etiqueta superior
             Label lbl_titulo = new Label();
             lbl_titulo.Text = "Asignaturas";
-
+            int rut = int.Parse(datosUsuario.Properties["Drut"]);
             //Carga Asignatura
-            cargaAsignatura();
+            cargaAsignatura(rut);
             //Atributos de ListView Asignatura
             lvw_asignatura.VerticalOptions = LayoutOptions.FillAndExpand;
             lvw_asignatura.ItemTemplate = new DataTemplate(typeof(TAsignaturaCeldas));
@@ -33,8 +36,8 @@ namespace AppUnap
             {
                 var datosAsignaturaSeleccionada = JsonConvert.SerializeObject(e.Item);
 
-                await Navigation.PushAsync(new PNota(datosAsignaturaSeleccionada));
-                ((ListView)sender).SelectedItem = null;
+                //await Navigation.PushAsync(new PNota(datosAsignaturaSeleccionada));
+                //((ListView)sender).SelectedItem = null;
 
             };
 
@@ -48,15 +51,15 @@ namespace AppUnap
             };
 
         }
-        //Carga de datos de asignatura
-        private async void cargaAsignatura()
+        //Carga de datos de asignaturaint
+        private async void cargaAsignatura(int rut)
         {
             lvw_asignatura.IsRefreshing = true;
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("http://209.208.28.88");//
-                string url = string.Format("/serviciosremotos/asignaturas-alumno.php");
+                string url = string.Format("/serviciosremotos/asignaturas-alumno.php?p_rut=11200304");
                 var response = await client.GetAsync(url);
                 resultadosConsulta = response.Content.ReadAsStringAsync().Result;
             }
@@ -64,7 +67,7 @@ namespace AppUnap
             {
                 await DisplayAlert("Error", "No hay conexion , Intente mas tarde", "Aceptar");
 
-                cargaAsignatura();
+                cargaAsignatura(rut);
                 return;
             }
             listaAsignatura = JsonConvert.DeserializeObject<List<CAsignatura>>(resultadosConsulta);

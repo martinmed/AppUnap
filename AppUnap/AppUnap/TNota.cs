@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Xamarin.Forms;
 
+
 namespace AppUnap
 {
     public class TNota : ViewCell

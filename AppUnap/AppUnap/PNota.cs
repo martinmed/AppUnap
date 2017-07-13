@@ -10,7 +10,7 @@ namespace AppUnap
     {
         private CAsignatura objetoAsignatura;
         ListView lvw_nota = new ListView();
-        private List<CNotas> listaNota;
+        private List<CNota> listaNota;
         String resultadosConsulta;
 
 
@@ -22,7 +22,7 @@ namespace AppUnap
             objetoAsignatura = JsonConvert.DeserializeObject<CAsignatura>(asignaturaSeleccionada);
 
             //Id de la Asignatura para consultar el método remoto
-            int CODIGO_ASIGNATURA = objetoAsignatura.CODIGO_ASIGNATURA;
+            string CODIGO_ASIGNATURA = objetoAsignatura.CODIGO_ASIGNATURA;
 
             //Etiqueta superior
             Label lbl_titulo = new Label();
@@ -44,7 +44,7 @@ namespace AppUnap
             };
         }
         //Carga de datos de notas de la asignatura
-        private async void cargaNotaAsignatura(int CODIGO_ASIGNATURA)
+        private async void cargaNotaAsignatura(string CODIGO_ASIGNATURA)
         {
             lvw_nota.IsRefreshing = true;
             try
@@ -61,10 +61,10 @@ namespace AppUnap
             {
                 await DisplayAlert("Error", "No hay conexion , Intente mas tarde", "Aceptar");
 
-                cargaNotaAsignatura(0);
-                return;
+                //cargaNotaAsignatura(CODIGO_ASIGNATURA);
+                //return;
             }
-            listaNota = JsonConvert.DeserializeObject<List<CNotas>>(resultadosConsulta);
+            listaNota = JsonConvert.DeserializeObject<List<CNota>>(resultadosConsulta);
             lvw_nota.ItemsSource = listaNota;
             lvw_nota.RowHeight = 100;
             lvw_nota.HeightRequest = 900;
@@ -74,4 +74,3 @@ namespace AppUnap
 
     }
 }
-
