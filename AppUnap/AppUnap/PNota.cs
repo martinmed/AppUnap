@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using Newtonsoft.Json;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace AppUnap
 {
@@ -22,14 +23,16 @@ namespace AppUnap
             objetoAsignatura = JsonConvert.DeserializeObject<CAsignatura>(asignaturaSeleccionada);
 
             //Id de la Asignatura para consultar el método remoto
-            string CODIGO_ASIGNATURA = objetoAsignatura.CODIGO_ASIGNATURA;
+            
+            var datosUsuario = Xamarin.Auth.AccountStore.Create().FindAccountsForService(Application.Current.ToString()).FirstOrDefault();
 
             //Etiqueta superior
             Label lbl_titulo = new Label();
             lbl_titulo.Text = "Notas de la asignatura " + objetoAsignatura.NOMBRE_ASIGNATURA;
+            
 
             //Carga Notas de la asignatura 
-            cargaNotaAsignatura(CODIGO_ASIGNATURA);
+            cargaNotaAsignatura(int.Parse(datosUsuario.Properties["Drut"]));
             //Atributos de ListView Asignatura
             lvw_nota.VerticalOptions = LayoutOptions.FillAndExpand;
             lvw_nota.ItemTemplate = new DataTemplate(typeof(TNota));
@@ -44,14 +47,14 @@ namespace AppUnap
             };
         }
         //Carga de datos de notas de la asignatura
-        private async void cargaNotaAsignatura(string CODIGO_ASIGNATURA)
+        private async void cargaNotaAsignatura(int rut)
         {
             lvw_nota.IsRefreshing = true;
             try
             {
                 HttpClient client = new HttpClient();
                 client.BaseAddress = new Uri("http://209.208.28.88");
-                string url = string.Format("/serviciosremotos/notas-asignatura.php?p_CODIGO_ASIGNATURA=" + CODIGO_ASIGNATURA); //URL POR CONFIRMAR!
+                string url = string.Format("/serviciosremotos/evaluaciones-asignaturas-alumno.php?p_rut=" + rut + "&p_id_curso=" + objetoAsignatura.ID_CURSO);
 
                 var response = await client.GetAsync(url);
                 resultadosConsulta = response.Content.ReadAsStringAsync().Result;
