@@ -7,8 +7,11 @@ namespace AppUnap
     class CNota
     {
 
-        public int id_nota { get; set; }
-        public string nota { get; set; }
+        public string FECHA_EVALUACION { get; set; }
+        public string DESCRIPCION_EVALUACION { get; set; }
+        public string PONDERACION { get; set; }
+        public string NUMERO_EVALUACION { get; set; }
+        public string NOTA { get; set; }
 
     }
 }
