@@ -79,6 +79,7 @@ namespace AppUnap
                     string p_nombre_carrera = datosResultadoUsuario[0]["NOMBRE_CARRERA"].ToString();
 					int p_id_sede           = Convert.ToInt32(datosResultadoUsuario[0]["ID_SEDE"].ToString());
 					string p_nombre_sede    = datosResultadoUsuario[0]["NOMBRE_SEDE"].ToString();
+                    
 
                     Account cuentaUsuario = new Account(email, CuentaUsuario.Dictionary(email,p_rut,p_nombre,p_apellido,p_url_foto,p_id_carrera,p_nombre_carrera,p_id_sede,p_nombre_sede));
 
@@ -129,7 +130,6 @@ namespace AppUnap
             NameValueCollection parametros = new NameValueCollection();
             parametros.Add("p_email", email);
           
-
             byte[] responseBytes = cliente.UploadValues(uri, "POST", parametros);
             string responseString = Encoding.UTF8.GetString(responseBytes);
             return responseString;

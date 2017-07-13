@@ -29,7 +29,7 @@ namespace AppUnap
             btnNotas.BackgroundColor = Color.White;
             btnNotas.Clicked += async (sender, e) =>
             {
-                await Navigation.PushModalAsync(new ListViewPage1());
+                await Navigation.PushModalAsync(new PAsignatura());
             };
 
                 ListView lv1 = new ListView(); 
@@ -45,7 +45,7 @@ namespace AppUnap
             imgLogo.Source = "png_logounap.png";
 
             Label lblBienvenido = new Label();
-            lblBienvenido.Text = "Bienvenido " + nombre;
+            lblBienvenido.Text = "Bienvenido " + nombre +" "+apellido;
             lblBienvenido.TextColor= Color.FromHex("#046DAB");
             lblBienvenido.HorizontalTextAlignment = TextAlignment.Center;
             lblBienvenido.FontSize = 25;

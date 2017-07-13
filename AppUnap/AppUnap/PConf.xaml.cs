@@ -18,6 +18,8 @@ namespace AppUnap
 	{
         public PConf()
         {
+            var datosUsuario = Xamarin.Auth.AccountStore.Create().FindAccountsForService(Application.Current.ToString()).FirstOrDefault();
+
             Image imgLogo = new Image();
             imgLogo.Source = "png_logounap.png";
             imgLogo.WidthRequest = 100;
@@ -36,13 +38,13 @@ namespace AppUnap
             Button btnFotoPerfil = new Button();
             //if(no se encuentra foto en la BD)
             //{
-            btnFotoPerfil.Image = "imagenpordefecto.png";
+        //    btnFotoPerfil.Image = "imagenpordefecto.png";
+        //}
+        //    else
+        //    {
+                btnFotoPerfil.Image = datosUsuario.Properties["Durlfoto"];
             //}
-            //else
-            //{
-            //    btnFotoPerfil.Image = "...";
-            //}
-            btnFotoPerfil.HorizontalOptions = LayoutOptions.Center;
+    btnFotoPerfil.HorizontalOptions = LayoutOptions.Center;
             btnFotoPerfil.ContentLayout = new ButtonContentLayout(ImagePosition.Right, 0);
             btnFotoPerfil.BackgroundColor = Color.FromHex("#99A8C4");
             btnFotoPerfil.HeightRequest = 100;
@@ -71,7 +73,7 @@ namespace AppUnap
             //////
 
             Label lblNombre = new Label();
-            lblNombre.Text = "Nombre Apellido Apellido";
+            lblNombre.Text = datosUsuario.Properties["Dnombre"]+" "+ datosUsuario.Properties["Dapellido"]; ;
             lblNombre.TextColor = Color.FromHex("#046DAB");
             lblNombre.HorizontalTextAlignment = TextAlignment.Center;
             lblNombre.FontSize = 22;
@@ -79,7 +81,7 @@ namespace AppUnap
             lblNombre.VerticalTextAlignment = TextAlignment.Center;
 
             Label lblRut = new Label();
-            lblRut.Text = "12.345.678-9";
+            lblRut.Text = datosUsuario.Properties["Drut"]; ;
             lblRut.TextColor = Color.FromHex("#046DAB");
             lblRut.HorizontalTextAlignment = TextAlignment.Center;
             lblRut.FontSize = 22;
@@ -88,7 +90,8 @@ namespace AppUnap
 
             Entry entEmail = new Entry();
             entEmail.Placeholder = "direccion@email.com";
-            
+            entEmail.Text= datosUsuario.Properties["Demail"];
+
             Entry entCelular = new Entry();
             entCelular.Placeholder = "+56 9 987654321";
 

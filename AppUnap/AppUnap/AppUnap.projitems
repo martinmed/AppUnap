@@ -12,6 +12,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)CAsignatura.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)CNotas.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ListViewPage1.xaml.cs">
       <DependentUpon>ListViewPage1.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -19,12 +21,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)PAsignatura.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PConf.xaml.cs">
       <DependentUpon>PConf.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)PLogin.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)PNota.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)PPrincipal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TAsignaturaCeldas.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)TNota.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
