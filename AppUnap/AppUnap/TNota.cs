@@ -17,10 +17,10 @@ namespace AppUnap
 
             //Label con valor dinámico id_nota
             Label lbl_id_nota = new Label();
-            lbl_id_nota.SetBinding(Label.TextProperty, new Binding("CODIGO_ASIGNATURA"));
+            lbl_id_nota.SetBinding(Label.TextProperty, new Binding("DESCRIPCION_EVALUACION"));
 
             Label lbl_nota = new Label();
-            lbl_nota.SetBinding(Label.TextProperty, new Binding("nota"));
+            lbl_nota.SetBinding(Label.TextProperty, new Binding("NOTA"));
 
 
 
@@ -28,6 +28,7 @@ namespace AppUnap
             View = new StackLayout
             {
                 Children = {
+
                     lbl_titulo_celda,
                     lbl_id_nota,
                     lbl_nota

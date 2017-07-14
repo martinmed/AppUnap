@@ -36,7 +36,7 @@ namespace AppUnap
             {
                 var datosAsignaturaSeleccionada = JsonConvert.SerializeObject(e.Item);
 
-                await Navigation.PushAsync(new PNota(datosAsignaturaSeleccionada));
+                await Navigation.PushModalAsync(new PNota(datosAsignaturaSeleccionada));
                 ((ListView)sender).SelectedItem = null;
 
             };

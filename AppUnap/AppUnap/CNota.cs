@@ -9,9 +9,9 @@ namespace AppUnap
 
         public string FECHA_EVALUACION { get; set; }
         public string DESCRIPCION_EVALUACION { get; set; }
-        public string PONDERACION { get; set; }
-        public string NUMERO_EVALUACION { get; set; }
-        public string NOTA { get; set; }
+        public int PONDERACION { get; set; }
+        public int NUMERO_EVALUACION { get; set; }
+        public int NOTA { get; set; }
 
     }
 }
