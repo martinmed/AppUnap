@@ -26,7 +26,9 @@ namespace AppUnap
             btnNotas.Text = "Calificaciones";
             btnNotas.HorizontalOptions = LayoutOptions.CenterAndExpand;
             btnNotas.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
-            btnNotas.BackgroundColor = Color.White;
+            btnNotas.BackgroundColor = Color.FromHex("#046DAB");
+            btnNotas.TextColor = Color.White;
+            
             btnNotas.Clicked += async (sender, e) =>
             {
                 await Navigation.PushModalAsync(new PAsignatura());
@@ -39,14 +41,15 @@ namespace AppUnap
             btnAulaVirtual.Text = "Aula Virtual";
             btnAulaVirtual.HorizontalOptions = LayoutOptions.CenterAndExpand;
             btnAulaVirtual.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
-            btnAulaVirtual.BackgroundColor = Color.White;
+            btnAulaVirtual.BackgroundColor = Color.FromHex("#046DAB");
+            btnAulaVirtual.TextColor = Color.White;
 
             Image imgLogo = new Image();
             imgLogo.Source = "png_logounap.png";
 
             Label lblBienvenido = new Label();
             lblBienvenido.Text = "Bienvenido " + nombre +" "+apellido;
-            lblBienvenido.TextColor= Color.FromHex("#046DAB");
+            lblBienvenido.TextColor = Color.White;
             lblBienvenido.HorizontalTextAlignment = TextAlignment.Center;
             lblBienvenido.FontSize = 25;
             lblBienvenido.FontAttributes = FontAttributes.Bold;
@@ -55,7 +58,7 @@ namespace AppUnap
             btnConfiguracion.Image = "engranaje.png";
             btnConfiguracion.HorizontalOptions = LayoutOptions.Center;
             btnConfiguracion.ContentLayout = new ButtonContentLayout(ImagePosition.Right, 0);
-            btnConfiguracion.BackgroundColor = Color.White;
+            btnConfiguracion.BackgroundColor = Color.FromHex("#046DAB");
             btnConfiguracion.Scale=0.4;
             btnConfiguracion.Clicked += async (sender, e) =>
             {
@@ -66,6 +69,8 @@ namespace AppUnap
 
             Content = new StackLayout
             {
+                //"#046DAB"=azul claro #034E7C azul oscuro
+                BackgroundColor = Color.FromHex("#046DAB"),
                 Padding = new Thickness(0, 10, 0, 0),
                 VerticalOptions = LayoutOptions.FillAndExpand,
                 Children =

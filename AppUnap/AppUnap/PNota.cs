@@ -31,21 +31,31 @@ namespace AppUnap
 
             //Etiqueta superior
             Label lbl_titulo = new Label();
-            lbl_titulo.Text = "Notas de la asignatura ";
-           
-
-
+            lbl_titulo.Text = "Notas de la asignatura: "+objetoAsignatura.NOMBRE_ASIGNATURA;
+            lbl_titulo.BackgroundColor = Color.FromHex("#046DAB");
+            lbl_titulo.TextColor = Color.White;
+            lbl_titulo.FontAttributes = FontAttributes.Bold;
+            lbl_titulo.HorizontalTextAlignment = TextAlignment.Center;
+            
             int id_curso = objetoAsignatura.ID_CURSO;
             //Carga Notas de la asignatura 
             cargaNotaAsignatura(int.Parse(datosUsuario.Properties["Drut"]),id_curso);
+
             //Atributos de ListView Asignatura
             lvw_nota.VerticalOptions = LayoutOptions.FillAndExpand;
             lvw_nota.ItemTemplate = new DataTemplate(typeof(TNota));
             lvw_nota.VerticalOptions = LayoutOptions.StartAndExpand;
-          
+            lvw_nota.RowHeight = 90;
+            lvw_nota.HeightRequest = 900;
+            lvw_nota.SeparatorVisibility = SeparatorVisibility.Default;
+            lvw_nota.SeparatorColor = Color.White;
+            lvw_nota.BackgroundColor = Color.FromHex("#046DAB");
+            lvw_nota.VerticalOptions = LayoutOptions.Center;
+
 
             Content = new StackLayout
             {
+                BackgroundColor = Color.FromHex("#034E7C"),
                 Children = {
                     lbl_titulo,
                     lvw_nota
@@ -82,7 +92,7 @@ namespace AppUnap
             }
             listaNota = JsonConvert.DeserializeObject<List<CNota>>(resultadosConsulta);
             lvw_nota.ItemsSource = listaNota;
-            lvw_nota.RowHeight = 100;
+            lvw_nota.RowHeight = 30;
             lvw_nota.HeightRequest = 900;
             lvw_nota.EndRefresh();
             // lvw_nota.IsRefreshing = false;

@@ -22,7 +22,11 @@ namespace AppUnap
             var datosUsuario = Xamarin.Auth.AccountStore.Create().FindAccountsForService(Application.Current.ToString()).FirstOrDefault();
             //Etiqueta superior
             Label lbl_titulo = new Label();
-            lbl_titulo.Text = "Asignaturas";
+            lbl_titulo.Text = "ASIGNATURAS ACTUALES";
+            lbl_titulo.BackgroundColor= Color.FromHex("#046DAB");
+            lbl_titulo.TextColor = Color.White;
+            lbl_titulo.FontAttributes = FontAttributes.Bold;
+            lbl_titulo.HorizontalTextAlignment = TextAlignment.Center;
             int rut = int.Parse(datosUsuario.Properties["Drut"]);
             //Carga Asignatura
             cargaAsignatura(rut);
@@ -44,6 +48,7 @@ namespace AppUnap
 
             Content = new StackLayout
             {
+                BackgroundColor = Color.FromHex("#034E7C"),
                 Children = {
                     lbl_titulo,
                     lvw_asignatura
@@ -72,8 +77,11 @@ namespace AppUnap
             }
             listaAsignatura = JsonConvert.DeserializeObject<List<CAsignatura>>(resultadosConsulta);
             lvw_asignatura.ItemsSource = listaAsignatura;
-            lvw_asignatura.RowHeight = 100;
+            lvw_asignatura.RowHeight = 90;
             lvw_asignatura.HeightRequest = 900;
+            lvw_asignatura.SeparatorVisibility = SeparatorVisibility.Default;
+            lvw_asignatura.SeparatorColor = Color.White;
+            lvw_asignatura.BackgroundColor = Color.FromHex("#046DAB");
             lvw_asignatura.EndRefresh();
             //lvw_asignatura.IsRefreshing = false;
         }
