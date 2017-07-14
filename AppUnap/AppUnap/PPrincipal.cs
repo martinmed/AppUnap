@@ -102,12 +102,8 @@ namespace AppUnap
                          {
                              btnConfiguracion,
                          }
-                     }
-                     
-                
-                }
-            
-        
+                     }                
+                }        
             };
         }
     }

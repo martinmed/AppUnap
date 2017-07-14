@@ -13,10 +13,11 @@ namespace AppUnap
 {
     public class PLogin : ContentPage
 	{
+        
 		public PLogin ()
 		{
-
             
+
             //			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
             //            if (cantidadCuenta == 0)
             //            {
@@ -26,7 +27,7 @@ namespace AppUnap
             //            {
             //                Navigation.PushModalAsync(new PPrincipal());
             //            }
-            
+
 
             //Imagen con logo
             Image img_logo = new Image();
@@ -98,7 +99,9 @@ namespace AppUnap
                 };
 
             Content = new StackLayout {
-				Children = {
+                
+
+                Children = {
                     //se instancian los objetos creados en orden
 					img_logo,
                     lbl_titulo,
