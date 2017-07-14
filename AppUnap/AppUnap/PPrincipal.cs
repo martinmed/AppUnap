@@ -43,6 +43,11 @@ namespace AppUnap
             btnAulaVirtual.ContentLayout = new ButtonContentLayout(ImagePosition.Top, 0);
             btnAulaVirtual.BackgroundColor = Color.FromHex("#046DAB");
             btnAulaVirtual.TextColor = Color.White;
+            btnAulaVirtual.Clicked += (sender, e) =>
+            {
+                Device.OpenUri(new Uri("http://www.unap.cl/campus_online/"));
+            };
+
 
             Image imgLogo = new Image();
             imgLogo.Source = "png_logounap.png";
