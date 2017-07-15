@@ -8,6 +8,7 @@ using Xamarin.Forms;
 using Newtonsoft.Json.Linq;
 using Xamarin.Auth;
 using Com.OneSignal;
+using Xamarin.Forms.Xaml;
 
 namespace AppUnap
 {
@@ -16,7 +17,9 @@ namespace AppUnap
         
 		public PLogin ()
 		{
+
             
+
 
             //			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
             //            if (cantidadCuenta == 0)
@@ -36,18 +39,26 @@ namespace AppUnap
             //Label con titulo
             Label lbl_titulo = new Label();
             lbl_titulo.Text = "Ingrese datos";
+            lbl_titulo.TextColor = Xamarin.Forms.Color.White;
 
             //Entry para capturar email
             Entry ent_email = new Entry();
             ent_email.Placeholder = "Ingrese email";
+            ent_email.TextColor= Xamarin.Forms.Color.White;
+            ent_email.PlaceholderColor= Xamarin.Forms.Color.White;
+            
 
             //Entry para capturar clave
             Entry ent_clave = new Entry();
             ent_clave.Placeholder = "Ingrese clave";
             ent_clave.IsPassword = true;
+            ent_clave.PlaceholderColor= Xamarin.Forms.Color.White;
+            ent_clave.TextColor= Xamarin.Forms.Color.White;
 
             //Button para ejecutar una accion
             Button btn_login = new Button();
+            btn_login.BackgroundColor = Xamarin.Forms.Color.FromHex("#046DAB");
+            btn_login.TextColor = Xamarin.Forms.Color.White;
             btn_login.Text = "Ingresar";
             btn_login.Clicked += async (sender, e) =>
             {
@@ -99,9 +110,9 @@ namespace AppUnap
                 };
 
             Content = new StackLayout {
-                
 
-                Children = {
+                BackgroundColor = Xamarin.Forms.Color.FromHex("#046DAB"),
+            Children = {
                     //se instancian los objetos creados en orden
 					img_logo,
                     lbl_titulo,
