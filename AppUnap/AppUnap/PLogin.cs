@@ -14,11 +14,11 @@ namespace AppUnap
 {
     public class PLogin : ContentPage
 	{
-        
-		public PLogin ()
-		{
 
-            
+        public PLogin()
+        {
+
+
 
 
             //			var cantidadCuenta = AccountStore.Create().FindAccountsForService(Application.Current.ToString()).Count();
@@ -35,31 +35,39 @@ namespace AppUnap
             //Imagen con logo
             Image img_logo = new Image();
             img_logo.Source = "png_logounap.png";
-                
+            
+
             //Label con titulo
             Label lbl_titulo = new Label();
-            lbl_titulo.Text = "Ingrese datos";
+            lbl_titulo.Text = "INGRESE DATOS";
             lbl_titulo.TextColor = Xamarin.Forms.Color.White;
+            lbl_titulo.VerticalOptions = LayoutOptions.FillAndExpand;
+            lbl_titulo.HorizontalOptions = LayoutOptions.Center;
+            lbl_titulo.FontAttributes=FontAttributes.Bold;
+            
 
             //Entry para capturar email
             Entry ent_email = new Entry();
             ent_email.Placeholder = "Ingrese email";
-            ent_email.TextColor= Xamarin.Forms.Color.White;
-            ent_email.PlaceholderColor= Xamarin.Forms.Color.White;
-            
+            ent_email.TextColor = Xamarin.Forms.Color.White;
+            ent_email.PlaceholderColor = Xamarin.Forms.Color.White;
+            ent_email.VerticalOptions = LayoutOptions.FillAndExpand;
+
 
             //Entry para capturar clave
             Entry ent_clave = new Entry();
             ent_clave.Placeholder = "Ingrese clave";
             ent_clave.IsPassword = true;
-            ent_clave.PlaceholderColor= Xamarin.Forms.Color.White;
-            ent_clave.TextColor= Xamarin.Forms.Color.White;
+            ent_clave.PlaceholderColor = Xamarin.Forms.Color.White;
+            ent_clave.TextColor = Xamarin.Forms.Color.White;
+            ent_clave.VerticalOptions = LayoutOptions.FillAndExpand;
 
             //Button para ejecutar una accion
             Button btn_login = new Button();
             btn_login.BackgroundColor = Xamarin.Forms.Color.FromHex("#046DAB");
             btn_login.TextColor = Xamarin.Forms.Color.White;
             btn_login.Text = "Ingresar";
+            btn_login.VerticalOptions = LayoutOptions.FillAndExpand;
             btn_login.Clicked += async (sender, e) =>
             {
                 String email = ent_email.Text;
@@ -115,10 +123,18 @@ namespace AppUnap
             Children = {
                     //se instancian los objetos creados en orden
 					img_logo,
-                    lbl_titulo,
-                    ent_email,
-                    ent_clave,
-                    btn_login
+                    new StackLayout
+                    {
+                        Padding = new Thickness (0, 20, 0, 0),
+                        Children =
+                        {
+                            lbl_titulo,
+                            ent_email,
+                            ent_clave,
+                            btn_login
+                        }
+                    },
+                    
 				}
 			};
 		}
